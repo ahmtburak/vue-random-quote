@@ -57,10 +57,13 @@ export default {
       <div class="w-full">
         <p class="text-md text-indigo-500 font-bold text-center">{{ quote.author }}</p>
       </div>
-      <div class="w-full flex justfiy-center items-center">
+      <div class="w-full flex justify-center items-center">
         <div
-          @click="fetchQuote(); getImage();"
-          class="mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-purple-500 via-indigo-500 to-indigo-500"
+          @click="
+            fetchQuote();
+            getImage();
+          "
+          class="mt-4 inline-flex justify-center items-center px-5 py-3 text-base font-medium text-center text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-purple-500 via-indigo-500 to-indigo-500"
         >
           <svg
             class="w-5 h-5 mr-2"
