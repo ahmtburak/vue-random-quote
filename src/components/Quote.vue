@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+      imageUrl: '',
       quote: {
         content: '',
         author: ''
@@ -9,6 +10,11 @@ export default {
     }
   },
   methods: {
+    async getImage() {
+      this.imageUrl = await fetch('https://source.unsplash.com/random/?motivation').then(
+        (res) => res.url
+      )
+    },
     async fetchQuote() {
       const data = await fetch('https://api.quotable.io/random').then((res) => res.json())
       this.quote = {
@@ -18,17 +24,21 @@ export default {
     }
   },
   created() {
-    this.fetchQuote();
-  },
+    this.fetchQuote()
+  }
 }
 </script>
 <template>
   <!--Container-->
   <div
     class="min-w-screen min-h-screen bg-cover bg-no-repeat bg-fixed bg-center flex items-center justify-center px-5 py-5"
-    :style="{
-      backgroundImage: `url(https://images.unsplash.com/photo-1497561813398-8fcc7a37b567?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80)`
-    }"
+    :style="[
+      imageUrl
+        ? { backgroundImage: `url(${imageUrl})` }
+        : {
+            backgroundImage: `url(https://images.unsplash.com/photo-1497561813398-8fcc7a37b567?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80)`
+          }
+    ]"
   >
     <!--Quote Section-->
     <div
@@ -49,7 +59,7 @@ export default {
       </div>
       <div class="w-full flex justfiy-center items-center">
         <div
-        @click="fetchQuote()"
+          @click="fetchQuote(); getImage();"
           class="mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-indigo-100 border border-indigo-500 rounded-lg shadow-sm cursor-pointer hover:text-white bg-gradient-to-br from-purple-500 via-indigo-500 to-indigo-500"
         >
           <svg
